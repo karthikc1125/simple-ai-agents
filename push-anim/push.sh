@@ -7,17 +7,23 @@ ANIM_BIN="/home/karthik/Documents/Projects/hobbie project/a/push-anim/target/rel
 "$ANIM_BIN" &
 ANIM_PID=$!
 
-# Run git push with all arguments passed to this script
-git push "$@"
+# Temporary file for git output
+PUSH_LOG=$(mktemp)
+
+# Run git push with all arguments, capturing all output (including progress)
+git push --progress "$@" > "$PUSH_LOG" 2>&1
 PUSH_EXIT_CODE=$?
 
 # Kill the animation
 kill $ANIM_PID 2>/dev/null
-# Wait a tiny bit for the animation to clean up/stop
 wait $ANIM_PID 2>/dev/null
 
-# Show the cursor again and reset terminal just in case
+# Clean up terminal state
 tput cnorm
-reset
+clear
+
+# Display the captured git output
+cat "$PUSH_LOG"
+rm "$PUSH_LOG"
 
 exit $PUSH_EXIT_CODE
