@@ -1,0 +1,1 @@
+/home/karthik/Documents/Projects/hobbie\ project/a/push-anim/target/release/push-anim: /home/karthik/Documents/Projects/hobbie\ project/a/push-anim/frames.txt /home/karthik/Documents/Projects/hobbie\ project/a/push-anim/src/main.rs
